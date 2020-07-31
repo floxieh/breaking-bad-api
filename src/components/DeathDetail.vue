@@ -42,7 +42,7 @@
 
             <v-card-text
               class="d-flex flex-column justify-center align-center"
-              v-else
+              v-else-if="personnages[this.charID - 1].status == 'Presumed dead'"
             >
               <p class="display-1 text-center">
                 <v-img
@@ -54,6 +54,15 @@
                 ></v-img>
                 {{ personnages[this.charID - 1].name }} is presumed dead but who
                 knows...
+              </p>
+            </v-card-text>
+
+            <v-card-text
+              class="d-flex flex-column justify-center align-center"
+              v-else-if="personnages[this.charID - 1].status == '?'"
+            >
+              <p class="display-1 text-center">
+                no info bro
               </p>
             </v-card-text>
 

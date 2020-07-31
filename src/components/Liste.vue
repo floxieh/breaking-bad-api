@@ -24,52 +24,67 @@
                 }"
                 class="fill-height"
               >
-                <v-card
-                  class="transition-swing fill-height testhover"
-                  :class="`elevation-${hover ? 8 : 4}`"
-                >
-                  <v-img
-                    class="white--text align-end hover-effect"
-                    height="450px"
-                    position="top center"
-                    :src="personnage.img"
+                <v-hover v-slot:default="{ hover }" open-delay="50">
+                  <v-card
+                    class="transition-swing fill-height hoverimg"
+                    :class="`elevation-${hover ? 8 : 4}`"
                   >
-                    <v-card-title>{{ personnage.name }}</v-card-title>
-                  </v-img>
-
-                  <v-card-subtitle
-                    v-if="personnage.birthday == 'Unknown'"
-                    class="pb-0"
-                    >Date of birth: Unknown</v-card-subtitle
-                  >
-
-                  <v-card-subtitle v-else class="pb-0"
-                    >Date of birth: {{ personnage.birthday }}
-                    <span>- ({{ getAge(personnage.birthday) }} yo)</span>
-                  </v-card-subtitle>
-
-                  <v-card-text class="text--primary d-flex flex-wrap">
-                    <span class="occupations__title">Occupation(s):</span>
-                    <div
-                      class="text-center"
-                      :key="personnage.id + '-' + value"
-                      v-for="value in personnage.occupation.slice(0, 2)"
+                    <v-img
+                      class="white--text align-end hover-effect"
+                      height="450px"
+                      position="top center"
+                      :src="personnage.img"
+                      :lazy-src="personnage.img"
                     >
-                      <v-chip class="ma-2" color="secondary">
-                        {{ value }}
-                      </v-chip>
+                      <template v-slot:placeholder>
+                        <v-row
+                          class="fill-height ma-0"
+                          align="center"
+                          justify="center"
+                        >
+                          <v-progress-circular
+                            indeterminate
+                            color="grey lighten-5"
+                          ></v-progress-circular>
+                        </v-row>
+                      </template>
+                      <v-card-title>{{ personnage.name }}</v-card-title>
+                    </v-img>
+
+                    <v-card-subtitle
+                      v-if="personnage.birthday == 'Unknown'"
+                      class="pb-0"
+                      >Date of birth: Unknown</v-card-subtitle
+                    >
+
+                    <v-card-subtitle v-else class="pb-0"
+                      >Date of birth: {{ personnage.birthday }}
+                      <span>- ({{ getAge(personnage.birthday) }} yo)</span>
+                    </v-card-subtitle>
+
+                    <v-card-text class="text--primary d-flex flex-wrap">
+                      <span class="occupations__title">Occupation(s):</span>
+                      <div
+                        class="text-center"
+                        :key="personnage.id + '-' + value"
+                        v-for="value in personnage.occupation.slice(0, 2)"
+                      >
+                        <v-chip class="ma-2" text-color="black">
+                          {{ value }}
+                        </v-chip>
+                      </div>
+                    </v-card-text>
+
+                    <div class="d-flex justify-center mb-2">
+                      <v-btn
+                        large
+                        color="error"
+                        @click="getId(personnage.char_id)"
+                        >Spoiler Alert: Am i dead ?</v-btn
+                      >
                     </div>
-                  </v-card-text>
-
-                  <div class="d-flex justify-center">
-                    <v-btn
-                      large
-                      color="error"
-                      @click="getId(personnage.char_id)"
-                      >Spoiler Alert: Am i dead ?</v-btn
-                    >
-                  </div>
-                </v-card>
+                  </v-card>
+                </v-hover>
               </v-lazy>
             </v-sheet>
           </v-col>
@@ -176,8 +191,8 @@ export default {
   }
 }
 
-.testhover:hover .hover-effect {
-    transition: all 0.2s;
+.hoverimg:hover .hover-effect {
+  transition: all 0.2s;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   filter: grayscale(100%);

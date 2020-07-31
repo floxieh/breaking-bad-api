@@ -12,8 +12,13 @@ export default new Vuetify({
       light: {
         primary: "#B2DFDB",
         secondary: "#124b3a",
+        chip: "#000000",
         accent: "#8c9eff",
         error: "#b71c1c",
+      },
+      dark: {
+        primary: "red",
+        secondary: "red",
       },
     },
   },
